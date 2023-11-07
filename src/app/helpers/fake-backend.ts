@@ -28,7 +28,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return of(new HttpResponse({ status: 401 }));
                 }
             }
-
             // pass through any requests not handled above
             return next.handle(request);
         }));
