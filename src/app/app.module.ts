@@ -12,6 +12,12 @@ import { SignupComponent } from './signup/signup.component';
 import { RouterModule } from '@angular/router';
 import { AdminAuthGuardService } from './admin-auth-guard.service';
 
+import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +29,7 @@ import { AdminAuthGuardService } from './admin-auth-guard.service';
     SignupComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot([
@@ -30,7 +37,12 @@ import { AdminAuthGuardService } from './admin-auth-guard.service';
       { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuardService] },
       { path: 'login', component: LoginComponent },
       { path: 'no-access', component: NoAccessComponent },
-    ])
+    ]),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
