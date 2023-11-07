@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { OrderService } from './services/order.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './auth-guard.service';
+import { fakeBackendProvider } from './helpers/fake-backend';
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -52,7 +53,8 @@ export function tokenGetter() {
     OrderService,
     AuthService,
     AuthGuardService,
-    AdminAuthGuardService
+    AdminAuthGuardService,
+    fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })

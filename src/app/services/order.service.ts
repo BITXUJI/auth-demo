@@ -1,9 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+
+@Injectable()
 export class OrderService {
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+  }
+
+  getOrders() {
+    return this.http.get('/api/orders');
+  }
 }
