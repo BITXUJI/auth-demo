@@ -14,7 +14,10 @@ import { AdminAuthGuardService } from './admin-auth-guard.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
-
+import { FormsModule } from '@angular/forms';
+import { OrderService } from './services/order.service';
+import { AuthService } from './services/auth.service';
+import { AuthGuardService } from './auth-guard.service';
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -29,6 +32,7 @@ export function tokenGetter() {
     SignupComponent
   ],
   imports: [
+    FormsModule,
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
@@ -44,7 +48,12 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [],
+  providers: [
+    OrderService,
+    AuthService,
+    AuthGuardService,
+    AdminAuthGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
