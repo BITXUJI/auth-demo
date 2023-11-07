@@ -1,4 +1,4 @@
-import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
