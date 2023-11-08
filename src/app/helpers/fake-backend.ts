@@ -12,7 +12,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return of(null).pipe(delay(1000), mergeMap(() => {
             // Fake implementation of /api/authenticate
             if (request.url.endsWith('/api/authenticate') && request.method === 'POST') {
-                const body = JSON.parse(request.body);
+                //  const body = JSON.parse(request.body); //the old code which introduce bug
+                const body = request.body;
                 if (body.email === 'mosh@domain.com' && body.password === '1234') {
                     return of(new HttpResponse({ status: 200, body: { token: this.token } }));
                 } else {
