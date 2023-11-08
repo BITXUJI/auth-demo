@@ -44,6 +44,8 @@ export function tokenGetter() {
       { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuardService] },
       { path: 'login', component: LoginComponent },
       { path: 'no-access', component: NoAccessComponent },
+      { path: '**', component: NotFoundComponent },
+
     ]),
     JwtModule.forRoot({
       config: {
@@ -59,7 +61,6 @@ export function tokenGetter() {
     AdminAuthGuardService,
     FakeBackendInterceptor,
     fakeBackendProvider
-
   ],
   bootstrap: [AppComponent]
 })
