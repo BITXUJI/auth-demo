@@ -1,18 +1,17 @@
-import { AuthGuardService } from './auth-guard.service';
-import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
+import { inject } from '@angular/core';
+import { AuthService } from './services/auth.service';
 
-@Injectable()
-export class AdminAuthGuardService extends AuthGuardService {
+export function AdminAuthGuard(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  const myService = inject(AuthService);
+  const myRouter = inject(Router);
 
-  override canActivate() {
-    let isAuthenticated = super.canActivate();
-    if (!isAuthenticated)
-      return false;
-
-    if (this.authService.currentUser.admin)
+  if (myService.isLoggedIn()) {
+    if (myService.currentUser.admin)
       return true;
 
-    this.router.navigate(['/no-access']);
+    myRouter.navigate(['/no-access']);
     return false;
   }
-}
+  return false;
+};

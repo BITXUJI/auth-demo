@@ -10,19 +10,19 @@ import { NoAccessComponent } from './no-access/no-access.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SignupComponent } from './signup/signup.component';
 import { RouterModule } from '@angular/router';
-import { AdminAuthGuardService } from './admin-auth-guard.service';
+import { AdminAuthGuard } from './admin-auth-guard.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { FormsModule } from '@angular/forms';
 import { OrderService } from './services/order.service';
 import { AuthService } from './services/auth.service';
-import { AuthGuardService } from './auth-guard.service';
+import { AuthGuard } from './auth-guard.service';
 import { fakeBackendProvider, FakeBackendInterceptor } from './helpers/fake-backend';
 
 
 export function tokenGetter() {
-  return localStorage.getItem('access_token');
+  return localStorage.getItem('token');
 }
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ export function tokenGetter() {
     AppRoutingModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuardService] },
+      { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
       { path: 'no-access', component: NoAccessComponent },
       { path: '**', component: NotFoundComponent },
@@ -57,10 +57,8 @@ export function tokenGetter() {
   providers: [
     OrderService,
     AuthService,
-    AuthGuardService,
-    AdminAuthGuardService,
     FakeBackendInterceptor,
-    fakeBackendProvider
+    fakeBackendProvider,
   ],
   bootstrap: [AppComponent]
 })
